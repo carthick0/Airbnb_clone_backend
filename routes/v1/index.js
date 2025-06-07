@@ -1,12 +1,15 @@
-const express=require('express');
+const express = require('express');
 
 
-const airplaneRoutes=require('./airplane-routes')
-
-const router=express.Router();
-
-
-router.use('/airplanes',airplaneRoutes)
+const airplaneRoutes = require('./airplane-routes')
+const cityRoutes = require('./city-routes')
 
 
-module.exports=router
+const router = express.Router();
+
+
+router.use('/airplanes', airplaneRoutes)
+
+router.use('/cities', cityRoutes)
+
+module.exports = router

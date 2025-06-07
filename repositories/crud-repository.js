@@ -13,6 +13,7 @@ class CrudRepository {
             const response = await this.model.create(data);
             return response;
         } catch (error) {
+            console.log(error)
             Logger.error("Something went wrong in the crud repo: create");
             throw error;
         }

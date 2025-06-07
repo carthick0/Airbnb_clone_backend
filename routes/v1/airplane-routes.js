@@ -1,6 +1,7 @@
 const express = require('express');
 const { AirplaneController } = require('../../controllers');
 const { AriplaneMiddlewares } = require('../../middlewares');
+const { updateAirplane } = require('../../services/airplane-service');
 
 
 const router = express.Router();
@@ -18,6 +19,10 @@ router.get('/:id', AirplaneController.getAirplane);
 
 // /api/v1/airplanes/:id DELETE
 router.delete('/:id', AirplaneController.destroyAirplane);
+
+
+// /api/v1/airplanes/:id PATCH
+router.patch('/:id', AirplaneController.updateAirplane)
 
 
 module.exports = router;

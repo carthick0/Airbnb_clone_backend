@@ -1,5 +1,5 @@
-
-module.exports={
-    info:require("./info-controler"),
-    AirplaneController:require("./airplane-controler")
+module.exports = {
+    info: require("./info-controler"),
+    AirplaneController: require("./airplane-controler"),
+    CityController: require("./city-controller")
 }
