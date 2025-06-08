@@ -18,18 +18,20 @@ app.listen(ServerConfig.PORT, async() => {
     Logger.info("Successfully stated the server", {})
 
 
-    const { City, Airport } = require('./models');
+    // const { City, Airport } = require('./models');
 
-    const benguluru = await City.findByPk(2);
-    console.log(benguluru)
+    // const benguluru = await City.findByPk(2);
+    // console.log(benguluru)
 
-    // const hbliairport = await benguluru.getAirports();
-    // console.log(hbliairport)
+    // const kempagowda = await benguluru.createAirport({ name: 'Kempagowda Airport', code: 'BLR' });
+    // console.log(kempagowda);
+    // // const hbliairport = await benguluru.getAirports();
+    // // console.log(hbliairport)
 
-    await City.destroy({
-        where: {
-            id: 2
-        }
-    })
+    // await City.destroy({
+    //     where: {
+    //         id: 2
+    //     }
+    // })
 
 });
