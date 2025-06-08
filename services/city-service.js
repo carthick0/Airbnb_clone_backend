@@ -5,17 +5,15 @@ const AppError = require("../utils/errors/app-error");
 const cityRepository = new CityRepository();
 
 
-
 async function createCity(data) {
     try {
-        const city = await cityRepository.create(data)
+        const city = await cityRepository.create(data);
         return city;
     } catch (error) {
-        let explanation = [];
-        if (error.name == 'SequelizeValidationError') {
-            error.errors.forEach((err) => {
-                explanation.push(err.message);
-            });
+        console.log('Create city error:', error); // Log error here
+        // existing error handling
+        if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+            const explanation = error.errors.map(err => err.message);
             throw new AppError('Cannot create a new city', StatusCodes.BAD_REQUEST, explanation);
         }
         throw new AppError('Cannot create a new city', StatusCodes.INTERNAL_SERVER_ERROR, [error.message]);

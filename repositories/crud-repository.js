@@ -2,7 +2,6 @@ const { StatusCodes } = require("http-status-codes");
 const { Logger } = require("../config");
 const AppError = require("../utils/errors/app-error");
 
-
 class CrudRepository {
     constructor(model) {
         this.model = model;
@@ -13,11 +12,33 @@ class CrudRepository {
             const response = await this.model.create(data);
             return response;
         } catch (error) {
-            console.log(error)
+            // Detailed error logging
+            console.error('Error in CrudRepository.create:', error);
+
+            // Log validation or unique constraint messages if present
+            if (error.errors) {
+                error.errors.forEach(e => {
+                    console.error('Validation error:', e.message);
+                });
+            }
+
             Logger.error("Something went wrong in the crud repo: create");
+
+            // Optional: Wrap Sequelize errors into AppError with better message
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                const explanation = error.errors.map(err => err.message);
+                throw new AppError(
+                    'Validation error while creating resource',
+                    StatusCodes.BAD_REQUEST,
+                    explanation
+                );
+            }
+
+            // Throw original error if not validation related
             throw error;
         }
     }
+
     async destroy(data) {
         try {
             const response = await this.model.destroy({
@@ -38,6 +59,7 @@ class CrudRepository {
             throw error;
         }
     }
+
     async getById(data) {
         try {
             const response = await this.model.findByPk(data);
@@ -45,7 +67,7 @@ class CrudRepository {
                 throw new AppError(
                     'Unable to find the requested resource',
                     StatusCodes.NOT_FOUND, ['No record found in the database for the given ID'],
-                    'Cannot fetch data  the resource '
+                    'Cannot fetch data the resource '
                 );
             }
             return response;
@@ -64,6 +86,7 @@ class CrudRepository {
             throw error;
         }
     }
+
     async update(id, data) {
         try {
             const response = await this.model.update(data, {
@@ -78,4 +101,5 @@ class CrudRepository {
         }
     }
 }
+
 module.exports = CrudRepository;
