@@ -1,8 +1,6 @@
 const { ServerConfig, Logger } = require('./config');
 const express = require('express');
 const apiRoutes = require('./routes');
-const { where } = require('sequelize');
-
 const app = express();
 
 
@@ -17,7 +15,6 @@ app.listen(ServerConfig.PORT, async() => {
     console.log(`Successfully started the server on PORT : ${ServerConfig.PORT}`);
     Logger.info("Successfully stated the server", {})
 
-
     // const { City, Airport } = require('./models');
 
     // const benguluru = await City.findByPk(2);
@@ -25,13 +22,14 @@ app.listen(ServerConfig.PORT, async() => {
 
     // const kempagowda = await benguluru.createAirport({ name: 'Kempagowda Airport', code: 'BLR' });
     // console.log(kempagowda);
-    // // const hbliairport = await benguluru.getAirports();
-    // // console.log(hbliairport)
+    // const hbliairport = await benguluru.getAirports();
+    // console.log(hbliairport)
 
     // await City.destroy({
     //     where: {
     //         id: 2
     //     }
     // })
+
 
 });
