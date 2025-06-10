@@ -64,8 +64,18 @@ async function getAllFlights(query) {
 }
 
 
+async function getFlight(id) {
+    try {
+        const flight = await flightRepository.getById(id);
+        return flight;
+    } catch (error) {
+        throw new AppError('Cannot fetch the detail of the flight you requested', StatusCodes.INTERNAL_SERVER_ERROR, error)
+    }
+}
+
 module.exports = {
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
 
 }
